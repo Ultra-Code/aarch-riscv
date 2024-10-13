@@ -1,9 +1,0 @@
-import! echo=echo%exe{echo} #import echo into scope
-
-alias{hello}: $echo 				#alias is a target that does't necessarily produce an output of a particular type but can
-{{
-	diag Execute hello 				#diag needed as a form of documentation for adhoc recipies
-	$echo "hello" 						#execute what i want
-}}
-
-./ :{*/ alias{hello}}
