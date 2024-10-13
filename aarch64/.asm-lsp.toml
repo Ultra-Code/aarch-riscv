@@ -1,0 +1,20 @@
+version = "0.9"
+
+[assemblers]
+nasm = true
+gas = false
+go = false
+z80 = false
+masm = false
+
+[instruction_sets]
+arm = true
+riscv = false
+x86 = false
+x86_64 = false
+z80 = false
+
+[opts]
+compiler = "zig cc"
+diagnostics = true
+default_diagnostics = true

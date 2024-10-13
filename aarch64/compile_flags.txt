@@ -1,0 +1,11 @@
+zig
+cc
+-x assembler-with-cpp
+-g
+-Wall
+-Wextra
+-pedantic
+-pedantic-errors
+-std=c2y
+-target
+aarch64-linux-musl
