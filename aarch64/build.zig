@@ -1,25 +1,36 @@
 const std = @import("std");
+const builtin = @import("builtin");
 
 pub fn build(b: *std.Build) void {
+    comptime {
+        switch (builtin.os.tag) {
+            .linux, .macos => {},
+            else => @panic("Not tested on this platform!, Contributions are welcome\n"),
+        }
+    }
     const target_query: std.Target.Query = .{
         .cpu_arch = .aarch64,
-        .os_tag = .linux,
+        .os_tag = builtin.os.tag,
         .abi = .musl,
     };
-
+    const target = b.resolveTargetQuery(target_query);
     const optimize = b.standardOptimizeOption(.{});
+
+    if (b.graph.host.result.cpu.arch != target_query.cpu_arch.?) {
+        b.enable_qemu = true;
+    }
 
     const arm64 = b.addAssembly(.{
         .name = "asm",
         .source_file = b.path("src/main.S"),
-        .target = b.resolveTargetQuery(target_query),
+        .target = target,
         .optimize = optimize,
     });
 
     const exe = b.addExecutable(.{
         .name = "aarch64",
         .root_source_file = b.path("src/main.zig"),
-        .target = b.resolveTargetQuery(target_query),
+        .target = target,
         .optimize = optimize,
         .link_libc = true,
     });
@@ -51,7 +62,7 @@ pub fn build(b: *std.Build) void {
 
     const exe_unit_tests = b.addTest(.{
         .root_source_file = b.path("src/main.zig"),
-        .target = b.resolveTargetQuery(target_query),
+        .target = target,
         .optimize = optimize,
     });
 
