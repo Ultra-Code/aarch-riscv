@@ -1,6 +1,6 @@
-zig
 cc
--x assembler-with-cpp
+-x
+assembler-with-cpp
 -g
 -Wall
 -Wextra
