@@ -5,6 +5,10 @@
  aarch_main:
      stp     x21, x30, [sp, -16]!    // push onto stack
      mov     x21, x1                 // argc -> x0, argv -> x1
+     MSR DAIFSet, #0x2
+     MSR NZCV, X0    // Write the value in X0 to the NZCV register
+     mRS X0, NZCV    // Read the current state of the NZCV register into X0
+     FADD V0.2D, V1.2D, V2.2D
  top:
      ldr     x0, [x21], 8            // argv++, old value in x0
      cbz     x0, bottom              // if *argv == NULL goto bottom
