@@ -3,8 +3,9 @@
 .global aarch_main
 
  aarch_main:
-     stp     x21, x30, [sp, -16]!    // push onto stack
      mov     x21, x1                 // argc -> x0, argv -> x1
+     stp     x21, x30, [sp, -16]!    // push onto stack
+     mov     x21, x1
  top:
      ldr     x0, [x21], 8            // argv++, old value in x0
      cbz     x0, bottom              // if *argv == NULL goto bottom

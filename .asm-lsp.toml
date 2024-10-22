@@ -1,20 +1,35 @@
 version = "0.1"
 
-[assemblers]
-gas = true
-nasm = false
-go = false
-z80 = false
-masm = false
-
-[instruction_sets]
-arm = true
-riscv = false
-x86 = false
-x86_64 = false
-z80 = false
+[default_config]
+assembler = { go = true }
+instruction_set = { x86 = true }
 
 [opts]
 compiler = "zig"
 diagnostics = true
 default_diagnostics = true
+
+[[project]]
+path = "aarch64"
+instruction_set = { arm64 = true }
+assembler = { gas = true }
+[project.opts]
+compiler = "zig"
+compile_flags_txt = [
+  "cc",
+  "-x",
+  "assembler-with-cpp",
+  "-g",
+  "-Wall",
+  "-Wextra",
+  "-pedantic",
+  "-pedantic-errors",
+  "-std=c2y",
+  "-target",
+  "aarch64-linux-musl",
+]
+
+[[project]]
+path = "x86_64"
+assembler = { gas = true }
+instruction_set = { x86_64 = true }
