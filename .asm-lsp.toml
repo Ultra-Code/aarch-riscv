@@ -1,8 +1,8 @@
 version = "0.1"
 
-[default_config]
-assembler = { go = true }
-instruction_set = { x86 = true }
+# [default_config]
+# assembler = "go"
+# instruction_set = "x86"
 
 [opts]
 compiler = "zig"
@@ -11,8 +11,8 @@ default_diagnostics = true
 
 [[project]]
 path = "aarch64"
-instruction_set = { arm64 = true }
-assembler = { gas = true }
+instruction_set = "arm64"
+assembler = "gas"
 [project.opts]
 compiler = "zig"
 compile_flags_txt = [
@@ -31,5 +31,5 @@ compile_flags_txt = [
 
 [[project]]
 path = "x86_64"
-assembler = { gas = true }
-instruction_set = { x86_64 = true }
+assembler = "gas"
+instruction_set = "x86-64"
